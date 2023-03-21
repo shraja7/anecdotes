@@ -14,10 +14,19 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  //initalize votes array with 0s and increment the selected index when vote button is clicked
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
+
+  const handleVote = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy);
+  };
 
   return (
     <div>
       <h1>Anecdote of the day</h1>
+
       <p>{anecdotes[selected]}</p>
       <button
         onClick={() =>
@@ -26,6 +35,9 @@ const App = () => {
       >
         Next anecdote
       </button>
+      <p>Has {votes[selected]} votes</p>
+
+      <button onClick={handleVote}>Vote</button>
     </div>
   );
 };
